@@ -31,11 +31,10 @@ public class OrderService {
 		return list.stream().map(x -> new OrderDTO(x)).collect(Collectors.toList());
 	}
 	
-	@Transactional
+	@Transactional // metodo POST
 	public OrderDTO insert(OrderDTO dto) {
-
-		Order order = new Order(null, dto.getAddress(), dto.getLatitude(), dto.getLongitude(),
-				Instant.now(), OrderStatus.PENDING);
+		Order order = new Order(null, dto.getAddress(), dto.getLatitude(), dto.getLongitude(),Instant.now(), OrderStatus.PENDING);
+		
 		for (ProductDTO p : dto.getProducts()) {
 			Product product = productRepository.getOne(p.getId());
 			order.getProducts().add(product);
